@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Hospital | Diagnósticos{% endblock title %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center pt-2">
+    <a class="btn btn-primary" href="{% url 'crear_diagnostico' %}" role="button">Crear nuevo diagnóstico</a>
+    {% if object_list %}
+    <div class="table-responsive-sm w-100 pt-2">
+        <table class="table table-primary text-sm-center">
+            <thead>
+                <tr>
+                    <th scope="col">Paciente</th>
+                    <th scope="col">Especialidad</th>
+                    <th scope="col">Enfermedad</th>
+                    <th scope="col">Síntomas</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col" colspan="2">Operaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for diagnostico in object_list %}
+                <tr>
+                    <td scope="row">{{diagnostico.paciente}}</td>
+                    <td scope="row">{{diagnostico.especialidad}}</td>
+                    <td scope="row">{{diagnostico.enfermedad}}</td>
+                    <td scope="row">{{diagnostico.sintomas}}</td>
+                    <td scope="row">{{diagnostico.estado}}</td>
+                    <td scope="row">
+                        <a class="btn btn-primary" href="{% url 'actualizar_diagnostico' pk=diagnostico.id %}"
+                            role="button">
+                            Actualizar
+                        </a>
+                    </td>
+                    <td scope="row">
+                        <a class="btn btn-primary" href="{% url 'eliminar_diagnostico' pk=diagnostico.id %}"
+                            role="button">
+                            Eliminar
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="pt-2 text-sm-center">No hay diagnósticos registrados</p>
+    {% endif %}
+</div>
+{% endblock content %}

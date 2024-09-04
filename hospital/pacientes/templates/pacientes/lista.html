@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Hospital | Pacientes{% endblock title %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center pt-2">
+    <a class="btn btn-primary" href="{% url 'crear_paciente' %}" role="button">Insertar nuevo paciente</a>
+    {% if object_list %}
+    <div class="table-responsive-sm w-100 pt-2">
+        <table class="table table-primary text-sm-center">
+            <thead>
+                <tr>
+                    <th scope="col">Historia Clínica</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Edad</th>
+                    <th scope="col">Sexo</th>
+                    <th scope="col">Área de salud</th>
+                    <th scope="col" colspan="2">Operaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for paciente in object_list %}
+                <tr>
+                    <td scope="row">{{paciente.historia}}</td>
+                    <td scope="row">{{paciente.nombre}} {{paciente.apellidos}}</td>
+                    <td scope="row">{{paciente.edad}}</td>
+                    <td scope="row">{{paciente.sexo}}</td>
+                    <td scope="row">{{paciente.area_de_salud}}</td>
+                    <td scope="row">
+                        <a class="btn btn-primary" href="{% url 'actualizar_paciente' pk=paciente.id %}"
+                            role="button">Actualizar</a>
+                    </td>
+                    <td scope="row">
+                        <a class="btn btn-primary" href="{% url 'eliminar_paciente' pk=paciente.id %}"
+                            role="button">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="pt-2 text-sm-center">No hay pacientes registrados</p>
+    {% endif %}
+</div>
+{% endblock content %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_filters %}
+{% block title %}Hospital | Pacientes |Eliminar Paciente{% endblock %}
+{% block content %}
+
+{% if perms.pacientes.es_secretaria %}
+<form method="post" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="container-fluid px-4 align-content-xxl-center">
+        <h2 class="text-sm-center">
+            ¿Esta seguro que desea eliminar el paciente {{ object.nombre }} {{ object.apellidos }}?<br>
+            Este cambio será irreversible
+        </h2>
+
+        <div class="p-2" style="display: flex; justify-content: center;">
+            <input class="btn btn-outline-success m-5" type="submit" value="Aceptar">
+            <a class="btn btn-outline-danger m-5" href="{% url 'grupos_lista' %}">Cancelar</a>
+
+        </div>
+    </div>
+</form>
+{% else %}
+<div class="text-sm-center">
+    <h1>Acceso denegado</h1>
+    <p>El acceso a esta página ha sido denegada al usuario {{user.username}}. Solo la secretaria puede
+        tener acceso a la
+        administración de los pacientes</p>
+    <a class="btn btn-primary pt-2" href="{% url 'pacientes_lista' %}" role="button">Volver a la lista
+        de pacientes</a>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Hospital | Grupos{% endblock title %}
+{% block content %}
+<div class="row justify-content-center align-items-center pt-2">
+    <a class="btn btn-primary" href="{% url 'crear_grupo' %}" role="button">Crear nuevo grupo</a>
+    {% if object_list %}
+    {% for grupo in object_list %}
+    <div class="col-md-4 m-2 p-2">
+        <div class="card">
+            <img class="card-img-top" src="{% static 'img/IMG-20240515-WA0161.jpg' %}" alt={{object.nombre}} />
+            <div class="card-body text-sm-center">
+                <h4 class="card-title">{{grupo.nombre}}</h4>
+                <p class="card-text">Cantidad de miembros {{grupo.pacientes.count}}/{{grupo.cantidad_miembros}}</p>
+                <a class="btn btn-primary" href="{% url 'actualizar_grupo' pk=grupo.id %}" role="button">
+                    Actualizar
+                </a>
+                <a class="btn btn-primary" href="{% url 'eliminar_grupo' pk=grupo.id %}" role="button">
+                    Eliminar
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p class="pt-2 text-sm-center">No hay grupos registrados</p>
+    {% endif %}
+</div>
+{% endblock content %}

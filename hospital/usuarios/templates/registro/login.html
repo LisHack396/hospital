@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Hospital | Login{% endblock title %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row justify-content-center align-items-center">
+        <form method="POST" class="formulario">
+            {% csrf_token %}
+            {{form | crispy}}
+            <div>
+                <a href="{% url 'registro' %}" class="text-sm-center mb-2">¿Aún no tienes una cuenta? Regístrate
+                    aquí</a>
+            </div>
+            <button type="submit" class="btn btn-success button mt-2 mb-2">Autenticar</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}
